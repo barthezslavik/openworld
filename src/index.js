@@ -51,6 +51,8 @@ var meshes = {};
 // Bullets array
 var bullets = [];
 
+scene = new THREE.Scene();
+
 //A socket.io instance
 const socket = io();
 //let glScene = new Scene();
@@ -141,7 +143,6 @@ socket.on('userPositions', _clientProps =>{
 });
 
 function init() {
-	scene = new THREE.Scene();
 	camera = new THREE.PerspectiveCamera(90, 1280 / 720, 0.1, 1000);
 	clock = new THREE.Clock();
 
