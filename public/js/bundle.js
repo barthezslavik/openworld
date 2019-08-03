@@ -47398,6 +47398,9 @@ var models = {
 	}
 };
 
+// custom global variables
+var video, videoImage, videoImageContext, videoTexture;
+
 // Meshes index
 var meshes = {};
 
@@ -47523,6 +47526,28 @@ function init() {
 	light.shadow.camera.near = 0.1;
 	light.shadow.camera.far = 25;
 	scene.add(light);
+
+	/*
+ video = document.createElement( 'video' );
+ video.src = "videos/sintel.ogv";
+ video.load(); // must call after setting/changing source
+ video.play();
+ videoImage = document.createElement( 'canvas' );
+ videoImage.width = 480;
+ videoImage.height = 204;
+ videoImageContext = videoImage.getContext( '2d' );
+ // background color if no video present
+ videoImageContext.fillStyle = '#000000';
+ videoImageContext.fillRect( 0, 0, videoImage.width, videoImage.height );
+ videoTexture = new THREE.Texture( videoImage );
+ videoTexture.minFilter = THREE.LinearFilter;
+ videoTexture.magFilter = THREE.LinearFilter;
+ var movieMaterial = new THREE.MeshBasicMaterial( { map: videoTexture, overdraw: true, side:THREE.DoubleSide } );
+ var movieGeometry = new THREE.PlaneGeometry( 240, 100, 4, 4 );
+ var movieScreen = new THREE.Mesh( movieGeometry, movieMaterial );
+ movieScreen.position.set(0,50,0);
+ scene.add(movieScreen);
+ */
 
 	var textureLoader = new THREE.TextureLoader(loadingManager);
 	crateTexture = textureLoader.load("crate0/crate0_diffuse.jpg");
@@ -47676,6 +47701,15 @@ function animate() {
 		// D key
 		camera.position.x += Math.sin(camera.rotation.y - Math.PI / 2) * player.speed;
 		camera.position.z += -Math.cos(camera.rotation.y - Math.PI / 2) * player.speed;
+	}
+
+	if (keyboard[69]) {
+		console.log('use');
+	}
+
+	if (keyboard[13]) {
+		camera.position.x -= Math.sin(camera.rotation.y) * 2;
+		camera.position.z -= -Math.cos(camera.rotation.y) * 2;
 	}
 
 	if (keyboard[37]) {
