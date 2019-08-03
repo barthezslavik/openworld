@@ -47404,6 +47404,85 @@ var meshes = {};
 // Bullets array
 var bullets = [];
 
+//A socket.io instance
+var socket = io();
+//let glScene = new Scene();
+var id = void 0;
+var instances = [];
+var clients = new Object();
+
+//On connection server sends the client his ID
+socket.on('introduction', function (_id, _clientNum, _ids) {
+
+	for (var i = 0; i < _ids.length; i++) {
+		if (_ids[i] != _id) {
+			clients[_ids[i]] = {
+				mesh: new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshNormalMaterial())
+
+				//Add initial users to the scene
+			};scene.add(clients[_ids[i]].mesh);
+		}
+	}
+
+	id = _id;
+	console.log('My ID is: ' + id);
+});
+
+socket.on('newUserConnected', function (clientCount, _id, _ids) {
+	console.log(clientCount + ' clients connected');
+	var alreadyHasUser = false;
+	for (var i = 0; i < Object.keys(clients).length; i++) {
+		if (Object.keys(clients)[i] == _id) {
+			alreadyHasUser = true;
+			break;
+		}
+	}
+	if (_id != id && !alreadyHasUser) {
+		console.log('A new user connected with the id: ' + _id);
+		clients[_id] = {
+			mesh: new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshNormalMaterial())
+
+			//Add initial users to the scene
+		};scene.add(clients[_id].mesh);
+	}
+});
+
+socket.on('userDisconnected', function (clientCount, _id, _ids) {
+	//Update the data from the server
+	document.getElementById('numUsers').textContent = clientCount;
+
+	if (_id != id) {
+		console.log('A user disconnected with the id: ' + _id);
+		scene.remove(clients[_id].mesh);
+		delete clients[_id];
+	}
+});
+
+socket.on('connect', function () {});
+
+//Update when one of the users moves in space
+socket.on('userPositions', function (_clientProps) {
+	// console.log('Positions of all users are ', _clientProps, id);
+	// console.log(Object.keys(_clientProps)[0] == id);
+	for (var i = 0; i < Object.keys(_clientProps).length; i++) {
+		if (Object.keys(_clientProps)[i] != id) {
+
+			//Store the values
+			var oldPos = clients[Object.keys(_clientProps)[i]].mesh.position;
+			var newPos = _clientProps[Object.keys(_clientProps)[i]].position;
+
+			//Create a vector 3 and lerp the new values with the old values
+			var lerpedPos = new THREE.Vector3();
+			lerpedPos.x = THREE.Math.lerp(oldPos.x, newPos[0], 0.3);
+			lerpedPos.y = THREE.Math.lerp(oldPos.y, newPos[1], 0.3);
+			lerpedPos.z = THREE.Math.lerp(oldPos.z, newPos[2], 0.3);
+
+			//Set the position
+			clients[Object.keys(_clientProps)[i]].mesh.position.set(lerpedPos.x, lerpedPos.y, lerpedPos.z);
+		}
+	}
+});
+
 function init() {
 	scene = new THREE.Scene();
 	camera = new THREE.PerspectiveCamera(90, 1280 / 720, 0.1, 1000);
@@ -47645,6 +47724,7 @@ function animate() {
 }
 
 function keyDown(event) {
+	socket.emit('move', [camera.position.x, camera.position.y, camera.position.z]);
 	keyboard[event.keyCode] = true;
 }
 
