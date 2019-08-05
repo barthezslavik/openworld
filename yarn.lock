@@ -1429,6 +1429,11 @@ crypto-random-string@^1.0.0:
   resolved "https://registry.yarnpkg.com/crypto-random-string/-/crypto-random-string-1.0.0.tgz#a230f64f568310e1498009940790ec99545bca7e"
   integrity sha1-ojD2T1aDEOFJgAmUB5DsmVRbyn4=
 
+css3d@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/css3d/-/css3d-1.0.0.tgz#39640853673fb661b7817287fe4cb3a9d4ae5f15"
+  integrity sha1-OWQIU2c/tmG3gXKH/kyzqdSuXxU=
+
 dash-ast@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/dash-ast/-/dash-ast-1.0.0.tgz#12029ba5fb2f8aa6f0a861795b23c1b4b6c27d37"
@@ -4275,6 +4280,11 @@ term-size@^1.2.0:
   integrity sha1-RYuDiH8oj8Vtb/+/rSYuJmOO+mk=
   dependencies:
     execa "^0.7.0"
+
+three-css3drenderer@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/three-css3drenderer/-/three-css3drenderer-1.0.1.tgz#6cdd07b1387d300325435f6ddeaf79e767b467c0"
+  integrity sha1-bN0HsTh9MAMlQ19t3q9552e0Z8A=
 
 three-obj-mtl-loader@^1.0.3:
   version "1.0.3"
