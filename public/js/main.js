@@ -32,17 +32,6 @@ var models = {
 		mtl: "models/Pirateship.mtl",
 		mesh: null
 	},
-	mac: {
-		obj: "models/Mac_2.obj",
-		mtl: "models/Mac_2.mtl",
-		mesh: null
-	},
-	ma: {
-		obj: "models/M4A1.obj",
-		mtl: "models/M4A1.mtl",
-		mesh: null,
-		castShadow: false
-	},
 	uzi: {
 		obj: "models/uziGold.obj",
 		mtl: "models/uziGold.mtl",
@@ -305,7 +294,6 @@ function onResourcesLoaded() {
 	meshes["campfire1"] = models.campfire.mesh.clone();
 	meshes["campfire2"] = models.campfire.mesh.clone();
 	meshes["pirateship"] = models.pirateship.mesh.clone();
-	meshes["ma"] = models.ma.mesh.clone();
 
 	// Reposition individual meshes, then add meshes to scene
 	meshes["tent1"].position.set(-5, 0, 4);
@@ -323,11 +311,6 @@ function onResourcesLoaded() {
 	meshes["pirateship"].position.set(-11, -1, 1);
 	meshes["pirateship"].rotation.set(0, Math.PI, 0); // Rotate it to face the other way.
 	scene.add(meshes["pirateship"]);
-
-        meshes["ma"].position.set(10, 1, 0);
-	meshes["ma"].rotation.set(0, Math.PI, 0);
-	meshes["ma"].scale.set(0.12, 0.12, 0.12);
-	scene.add(meshes["ma"]);
 
 	// player weapon
 	meshes["playerweapon"] = models.uzi.mesh.clone();
