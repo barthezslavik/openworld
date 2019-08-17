@@ -1,14 +1,3 @@
-/**
- * @author mrdoob / http://mrdoob.com/
- * @author Mugen87 / https://github.com/Mugen87
- */
-
-import {
-	Euler,
-	EventDispatcher,
-	Vector3
-} from "../../../build/three.module.js";
-
 var PointerLockControls = function ( camera, domElement ) {
 
 	this.domElement = domElement || document.body;
@@ -24,7 +13,7 @@ var PointerLockControls = function ( camera, domElement ) {
 	var lockEvent = { type: 'lock' };
 	var unlockEvent = { type: 'unlock' };
 
-	var euler = new Euler( 0, 0, 0, 'YXZ' );
+	var euler = new THREE.Euler( 0, 0, 0, 'YXZ' );
 
 	var PI_2 = Math.PI / 2;
 
@@ -102,7 +91,7 @@ var PointerLockControls = function ( camera, domElement ) {
 
 	this.getDirection = function () {
 
-		var direction = new Vector3( 0, 0, - 1 );
+		var direction = new THREE.Vector3( 0, 0, - 1 );
 
 		return function ( v ) {
 
@@ -128,7 +117,5 @@ var PointerLockControls = function ( camera, domElement ) {
 
 };
 
-PointerLockControls.prototype = Object.create( EventDispatcher.prototype );
+PointerLockControls.prototype = Object.create(THREE.EventDispatcher.prototype);
 PointerLockControls.prototype.constructor = PointerLockControls;
-
-export { PointerLockControls };
